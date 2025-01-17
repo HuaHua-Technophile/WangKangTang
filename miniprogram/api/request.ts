@@ -20,7 +20,7 @@ interface ApiResponse<T = any> {
 /**
  * 默认配置
  */
-const DEFAULT_BASE_URL = "http://117.72.77.4:12759";
+export const BASE_URL = "http://117.72.77.4:12759";
 // 修改后的 DEFAULT_HEADERS 和 headers 定义
 const DEFAULT_HEADERS: Record<string, string> = {
   "Content-Type": "application/json",
@@ -39,7 +39,9 @@ const getToken = (): string | null => {
  * @param options 请求配置
  * @returns Promise封装的请求结果，符合 ApiResponse 类型
  */
-const request = <T = any>(options: RequestOptions): Promise<ApiResponse<T>> => {
+export const request = <T = any>(
+  options: RequestOptions
+): Promise<ApiResponse<T>> => {
   const {
     url,
     method = "GET",
@@ -67,7 +69,7 @@ const request = <T = any>(options: RequestOptions): Promise<ApiResponse<T>> => {
   // 返回Promise封装的请求
   return new Promise((resolve, reject) => {
     wx.request<ApiResponse<T>>({
-      url: `${DEFAULT_BASE_URL}${url}`,
+      url: `${BASE_URL}${url}`,
       method,
       data,
       header: headers,
@@ -105,5 +107,3 @@ const request = <T = any>(options: RequestOptions): Promise<ApiResponse<T>> => {
     });
   });
 };
-
-export default request;
