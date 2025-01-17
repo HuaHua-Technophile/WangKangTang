@@ -1,10 +1,15 @@
 {
-  "pages": ["pages/index/index"],
+  "pages": [
+    "pages/index/index"
+  ],
   "window": {
-    "navigationBarTextStyle": "black",
-    "navigationStyle": "custom"
+    "navigationBarBackgroundColor": "@navigationBarBackgroundColor",
+    "navigationBarTextStyle": "@navigationBarTextStyle",
+    "navigationBarTitleText": "旺康堂"
   },
   "style": "v2",
+  "darkmode": true,
+  "themeLocation": "theme.json",
   "rendererOptions": {},
   "componentFramework": "glass-easel",
   "sitemapLocation": "sitemap.json",

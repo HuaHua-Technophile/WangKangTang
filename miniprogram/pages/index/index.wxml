@@ -1,0 +1,28 @@
+<!-- pages/index/index.wxml -->
+<view>
+  <!-- 搜索框 -->
+  <view class="rounded-5 mx-2 my-1 d-flex align-items-center bg-body-secondary bg-dark ps-4 py-2">
+    <view class="iconfont icon-sousuo me-3 fs-5 text-body"></view>
+    <view class="text-body-secondary">旺康堂精准搜索，快速找药</view>
+  </view>
+  <!-- 标签 -->
+  <view class="d-flex align-items-center justify-content-between mx-3 text-body">
+    <view class="d-flex align-items-center">
+      <view class="iconfont icon-shuipingjuli text-success me-1"></view>
+      <view class="fs-8">就近取药</view>
+    </view>
+    <view class="d-flex align-items-center">
+      <view class="iconfont icon-liansuodian text-success me-1"></view>
+      <view class="fs-8">多店连锁</view>
+    </view>
+    <view class="d-flex align-items-center">
+      <view class="iconfont icon-dunpai text-success me-1"></view>
+      <view class="fs-8">正品保证</view>
+    </view>
+    <view class="d-flex align-items-center">
+      <view class="iconfont icon-fabuzhengshu text-success me-1"></view>
+      <view class="fs-8">资质许可</view>
+    </view>
+  </view>
+  <!-- 轮播图 -->
+</view>

@@ -1,1 +1,13 @@
 @use "./style/bootstrap5.3.3.css";
+@use "./assets/icon/iconfont.css";
+
+// 定义基准字号和递减规则
+$base-font-size: 0.95rem; // fs-7 的字号
+$decrement-step: 0.05rem; // 每增加 1，字号递减的步长
+
+// 使用 @for 循环从 7 遍历到 12
+@for $i from 7 through 12 {
+  .fs-#{$i} {
+    font-size: $base-font-size - ($i - 7) * $decrement-step;
+  }
+}
