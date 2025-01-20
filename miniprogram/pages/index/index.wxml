@@ -1,12 +1,12 @@
 <!-- pages/index/index.wxml -->
 <view>
   <!-- 搜索框 -->
-  <view class="rounded-5 mx-2 my-2 d-flex align-items-center bg-body-secondary bg-dark ps-4 py-2">
+  <view class="mx-3 rounded-5 my-2 d-flex align-items-center bg-body-secondary bg-dark ps-4 py-2">
     <view class="iconfont icon-sousuo me-3 fs-5 text-body"></view>
     <view class="text-body-secondary">旺康堂精准搜索，快速找药</view>
   </view>
   <!-- 标签 -->
-  <view class="d-flex align-items-center justify-content-between mx-3 mb-2 text-body">
+  <view class="mx-3 d-flex align-items-center justify-content-between mb-2 text-body">
     <view class="d-flex align-items-center">
       <view class="iconfont icon-shuipingjuli text-success me-1"></view>
       <view class="fs-8">就近取药</view>
@@ -25,14 +25,59 @@
     </view>
   </view>
   <!-- 轮播图 -->
-  <view>
-    <swiper indicator-dots="{{true}}" autoplay="{{true}}" interval="{{5000}}" duration="{{500}}" circular="{{true}}" style="height:100vw">
-      <!-- 循环渲染轮播图内容 -->
-      <block wx:for="{{banners}}" wx:key="id">
-        <swiper-item>
-          <image src="{{BASE_URL}}{{item.pic}}" mode="aspectFill" bindtap="onBannerClick" data-url="{{item.url}}" data-starttime="{{item.startTime}}" data-endtime="{{item.endTime}}" class="h-100 w-100" />
-        </swiper-item>
-      </block>
-    </swiper>
+  <view class="mx-3 mb-3 rounded rounded-4 border shadow overflow-hidden">
+    <view class="position-relative" style="padding-top:100%">
+      <view class="position-absolute start-0 top-0 end-0 bottom-0">
+        <swiper indicator-dots="{{true}}" autoplay="{{true}}" interval="{{5000}}" duration="{{500}}" circular="{{true}}" class="w-100 h-100">
+          <!-- 循环渲染轮播图内容 -->
+          <block wx:for="{{banners}}" wx:key="id">
+            <swiper-item>
+              <image src="{{BASE_URL + item.pic}}" mode="aspectFill" bindtap="onBannerClick" data-url="{{item.url}}" data-starttime="{{item.startTime}}" data-endtime="{{item.endTime}}" style="width:calc(100% + 2px);height:calc(100% + 2px);margin: -1px;" />
+            </swiper-item>
+          </block>
+        </swiper>
+      </view>
+    </view>
+  </view>
+  <!-- 热销商品 -->
+  <view class="bg-body-secondary px-3 pt-3">
+    <view class="d-flex align-items-center text-body fs-4 mb-3">
+      <view class="iconfont icon-rexiaoshangpin fs-1 text-danger me-1"></view>
+      热销商品
+    </view>
+    <view class="d-flex flex-wrap justify-content-between">
+      <view wx:for="{{hotProducts}}" wx:key="id" class="bg-body shadow rounded-3 overflow-hidden mb-3 d-flex flex-column justify-content-between" style="width:47%">
+        <view>
+          <!-- 头图 -->
+          <view class="position-relative w-100 mb-2" style="padding-top:100%">
+            <view class="position-absolute top-0 start-0 bottom-0 end-0">
+              <image class="w-100 h-100" src="{{BASE_URL + item.imageUrl}}" />
+            </view>
+          </view>
+          <!-- 药品名称 -->
+          <text class="mx-2 text-truncate-multiline-2 mb-2">{{item.name}}</text>
+          <!-- 标识 -->
+          <view class="mx-2 fs-10 text-white d-flex flex-wrap mb-2">
+            <view class="rounded rounded-1 shadow-sm me-2 mb-1" style="padding:3px 8px;background: linear-gradient(-90deg,#F6A825,#FBD148)">
+              热销 {{item.sale}}
+            </view>
+            <view wx:if="{{item.isEssential}}" class="rounded rounded-1 shadow-sm me-2 mb-1" style="background:#00C692;padding:3px 8px;">
+              必备药品
+            </view>
+            <view wx:if="{{item.isPrescription === 1}}" class="rounded rounded-1 shadow-sm me-2 mb-1" style=" background:#FD6055;padding:3px 8px;">
+              处方药
+            </view>
+          </view>
+        </view>
+        <!-- 价格/加购物车 -->
+        <view class="mx-2 mb-2 d-flex align-items-center justify-content-between">
+          <view class="text-danger">
+            活动价
+            <text class="fs-4">￥{{item.price}}</text>
+          </view>
+          <view class="iconfont icon-jia text-white rounded rounded-circle bg-success shadow-sm p-1" />
+        </view>
+      </view>
+    </view>
   </view>
 </view>

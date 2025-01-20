@@ -11,3 +11,10 @@ $decrement-step: 0.05rem; // 每增加 1，字号递减的步长
     font-size: $base-font-size - ($i - 7) * $decrement-step;
   }
 }
+.text-truncate-multiline-2 {
+  display: -webkit-box; /* 使用弹性盒子模型 */
+  -webkit-box-orient: vertical; /* 设置盒子垂直排列 */
+  overflow: hidden; /* 超出部分隐藏 */
+  text-overflow: ellipsis; /* 超出部分显示省略号 */
+  -webkit-line-clamp: 2; /* 限制显示两行 */
+}

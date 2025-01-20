@@ -3,12 +3,13 @@
 
 import { BASE_URL, request } from "../../api/request";
 
-import { AdvertiseItem } from "../../types/index";
+import { AdvertiseItem, ProductItem } from "../../types/index";
 
 Page({
   data: {
     banners: [] as AdvertiseItem[], // 初始化轮播图数据
     BASE_URL,
+    hotProducts: [] as ProductItem[],
   },
   /**
    * 获取轮播图数据
@@ -70,7 +71,40 @@ Page({
       });
     }
   },
+
+  /**
+   * 获取热销商品数据并随机添加“必备药品”标签
+   */
+  async fetchHotProducts() {
+    try {
+      // 发送请求获取商品数据
+      const res = await request<ProductItem[]>({
+        url: "/wx/home/noToken/getProductBySale",
+      });
+
+      console.log("热销商品=>", res);
+
+      if (res.code === 200) {
+        // 对返回的数据进行处理，随机添加 isEssential 属性
+        const processedProducts = res.data.map((product) => {
+          return {
+            ...product,
+            // 30% 的概率添加“必备药品”标识
+            isEssential: Math.random() < 0.3,
+          };
+        });
+
+        // 更新 hotProducts 数据
+        this.setData({ hotProducts: processedProducts });
+      } else {
+        console.error("获取热销商品失败：", res.msg);
+      }
+    } catch (error) {
+      console.error("请求热销商品数据时出错：", error);
+    }
+  },
   async onLoad() {
     await this.fetchBannerData();
+    await this.fetchHotProducts();
   },
 });
