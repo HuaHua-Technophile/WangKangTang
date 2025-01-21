@@ -12,8 +12,8 @@
         <swiper autoplay="true" interval="3000" duration="500" indicator-dots="true" circular="true" class="w-100 h-100">
           <!-- 循环渲染轮播图内容 -->
           <block wx:for="{{banners}}" wx:key="id">
-            <swiper-item>
-              <image src="{{BASE_URL + item.pic}}" mode="aspectFill" bindtap="onBannerClick" data-url="{{item.url}}" data-starttime="{{item.startTime}}" data-endtime="{{item.endTime}}" style="width:calc(100% + 2px);height:calc(100% + 2px);margin: -1px;" />
+            <swiper-item bindtap="onBannerClick" data-url="{{item.url}}" data-starttime="{{item.startTime}}" data-endtime="{{item.endTime}}">
+              <image src="{{BASE_URL + item.pic}}" mode="aspectFill" style="width:calc(100% + 2px);height:calc(100% + 2px);margin: -1px;" />
             </swiper-item>
           </block>
         </swiper>

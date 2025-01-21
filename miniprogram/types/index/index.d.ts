@@ -36,6 +36,4 @@ export interface BulletinItem {
   imgUrl?: string;
   /** 公告的详细内容 */
   text?: string;
-  /** 公告的状态 0有效 1过期 */
-  status?: 0 | 1;
 }
