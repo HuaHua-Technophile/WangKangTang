@@ -3,13 +3,15 @@
 
 import { BASE_URL, request } from "../../api/request";
 
-import { AdvertiseItem, ProductItem } from "../../types/index";
+import { AdvertiseItem, BulletinItem } from "../../types/index";
+import { ProductItem } from "../../types/product/product";
 
 Page({
   data: {
     banners: [] as AdvertiseItem[], // 初始化轮播图数据
     BASE_URL,
     hotProducts: [] as ProductItem[],
+    bulletins: [] as BulletinItem[], // 公告数据列表
   },
   /**
    * 获取轮播图数据
@@ -103,8 +105,27 @@ Page({
       console.error("请求热销商品数据时出错：", error);
     }
   },
+
+  /**
+   * 获取公告数据
+   */
+  async fetchBulletins() {
+    try {
+      const res = await request<BulletinItem[]>({
+        url: "/wx/home/noToken/getBulletin",
+        method: "GET",
+      });
+      console.log("公告列表=>", res);
+      if (res.code == 200) this.setData({ bulletins: res.data });
+      else console.error("获取公告失败", res.msg);
+    } catch (error) {
+      console.error("网络错误", error);
+    }
+  },
+
   async onLoad() {
     await this.fetchBannerData();
+    await this.fetchBulletins();
     await this.fetchHotProducts();
   },
 });

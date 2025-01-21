@@ -5,8 +5,23 @@
     <view class="iconfont icon-sousuo me-3 fs-5 text-body"></view>
     <view class="text-body-secondary">旺康堂精准搜索，快速找药</view>
   </view>
+  <!-- 轮播图 -->
+  <view class="mx-3 mb-3 rounded rounded-4 border shadow overflow-hidden">
+    <view class="position-relative" style="padding-top:100%">
+      <view class="position-absolute start-0 top-0 end-0 bottom-0">
+        <swiper autoplay="true" interval="3000" duration="500" indicator-dots="true" circular="true" class="w-100 h-100">
+          <!-- 循环渲染轮播图内容 -->
+          <block wx:for="{{banners}}" wx:key="id">
+            <swiper-item>
+              <image src="{{BASE_URL + item.pic}}" mode="aspectFill" bindtap="onBannerClick" data-url="{{item.url}}" data-starttime="{{item.startTime}}" data-endtime="{{item.endTime}}" style="width:calc(100% + 2px);height:calc(100% + 2px);margin: -1px;" />
+            </swiper-item>
+          </block>
+        </swiper>
+      </view>
+    </view>
+  </view>
   <!-- 标签 -->
-  <view class="mx-3 d-flex align-items-center justify-content-between mb-2 text-body">
+  <view class="px-3  d-flex align-items-center justify-content-between mb-3 text-body">
     <view class="d-flex align-items-center">
       <view class="iconfont icon-shuipingjuli text-success me-1"></view>
       <view class="fs-8">就近取药</view>
@@ -24,19 +39,25 @@
       <view class="fs-8">资质许可</view>
     </view>
   </view>
-  <!-- 轮播图 -->
-  <view class="mx-3 mb-3 rounded rounded-4 border shadow overflow-hidden">
-    <view class="position-relative" style="padding-top:100%">
-      <view class="position-absolute start-0 top-0 end-0 bottom-0">
-        <swiper indicator-dots="{{true}}" autoplay="{{true}}" interval="{{5000}}" duration="{{500}}" circular="{{true}}" class="w-100 h-100">
-          <!-- 循环渲染轮播图内容 -->
-          <block wx:for="{{banners}}" wx:key="id">
-            <swiper-item>
-              <image src="{{BASE_URL + item.pic}}" mode="aspectFill" bindtap="onBannerClick" data-url="{{item.url}}" data-starttime="{{item.startTime}}" data-endtime="{{item.endTime}}" style="width:calc(100% + 2px);height:calc(100% + 2px);margin: -1px;" />
-            </swiper-item>
-          </block>
-        </swiper>
-      </view>
+  <!-- 公告 -->
+  <view class="position-relative mx-3 mb-3 rounded-4 shadow overflow-hidden" style="padding-top: 56.25%">
+    <view class="position-absolute top-0 start-0 end-0 bottom-0">
+      <swiper autoplay="true" interval="3000" duration="500" indicator-dots="true" circular="true" class="w-100 h-100">
+        <swiper-item wx:for="{{bulletins}}" wx:key="id">
+          <!-- 如果有 imgUrl，优先显示图片 -->
+          <image wx:if="{{item.imgUrl}}" src="{{BASE_URL+item.imgUrl}}" class="w-100 h-100"></image>
+          <!-- 否则仅显示标题 -->
+          <view wx:else class="bg-body-secondary w-100 h-100 d-flex align-items-center justify-content-center fs-1 p-5 no-img-bulletin" style="color: #00b26a;">
+            {{item.title}}
+          </view>
+        </swiper-item>
+        <!-- 无公告 -->
+        <swiper-item wx:if="{{!bulletins || bulletins.length === 0}}">
+          <view class="bg-body-secondary w-100 h-100 d-flex align-items-center justify-content-center fs-1 p-5 no-img-bulletin" style="color: #00b26a;">
+            暂无公告
+          </view>
+        </swiper-item>
+      </swiper>
     </view>
   </view>
   <!-- 热销商品 -->
