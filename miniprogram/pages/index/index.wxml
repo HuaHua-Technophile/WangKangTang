@@ -43,7 +43,7 @@
   <view class="position-relative mx-3 mb-3 rounded-4 shadow overflow-hidden" style="padding-top: 56.25%">
     <view class="position-absolute top-0 start-0 end-0 bottom-0">
       <swiper autoplay="true" interval="3000" duration="500" indicator-dots="true" circular="true" class="w-100 h-100">
-        <swiper-item wx:for="{{bulletins}}" wx:key="id">
+        <swiper-item wx:for="{{bulletins}}" wx:key="id" data-index="{{index}}" bindtap="onBulletinClick">
           <!-- 如果有 imgUrl，优先显示图片 -->
           <image wx:if="{{item.imgUrl}}" src="{{BASE_URL+item.imgUrl}}" class="w-100 h-100"></image>
           <!-- 否则仅显示标题 -->

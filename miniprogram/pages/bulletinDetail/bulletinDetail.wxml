@@ -1,6 +1,0 @@
-<!-- pages/bulletinDetail/bulletinDetail.wxml -->
-<view class="container">
-  <image class="bulletin-image" src="{{bulletin.imgUrl}}" wx:if="{{bulletin.imgUrl}}" />
-  <view class="bulletin-title">{{bulletin.title}}</view>
-  <view class="bulletin-text">{{bulletin.text}}</view>
-</view>

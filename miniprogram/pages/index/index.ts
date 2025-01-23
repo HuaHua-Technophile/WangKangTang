@@ -12,6 +12,8 @@ Page({
     BASE_URL,
     hotProducts: [] as ProductItem[],
     bulletins: [] as BulletinItem[], // 公告数据列表
+    selectedBulletin: null as BulletinItem | null, // 当前选中的公告
+    isDetailVisible: false, // 是否显示公告详情
   },
   /**
    * 获取轮播图数据
@@ -121,6 +123,32 @@ Page({
     } catch (error) {
       console.error("网络错误", error);
     }
+  },
+
+  /**
+   * 用户点击公告的处理逻辑
+   * @param event 触发事件的对象，包含所点击的公告数据
+   */
+  onBulletinClick(event: WechatMiniprogram.TouchEvent): void {
+    // 获取当前点击的公告索引
+    const index: number = event.currentTarget.dataset.index;
+    // 根据索引从 bulletins 中获取对应的公告数据
+    const bulletinItem: BulletinItem = this.data.bulletins[index];
+    console.log("当前点击公告数据=>", bulletinItem);
+    // 更新数据，显示公告详情组件
+    this.setData({
+      selectedBulletin: bulletinItem,
+      isDetailVisible: true,
+    });
+  },
+  /**
+   * 关闭公告详情组件
+   */
+  onCloseBulletinDetail(): void {
+    this.setData({
+      isDetailVisible: false,
+      selectedBulletin: null,
+    });
   },
 
   async onLoad() {

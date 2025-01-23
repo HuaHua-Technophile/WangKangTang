@@ -1,7 +1,6 @@
 {
   "pages": [
-    "pages/index/index",
-    "pages/bulletinDetail/bulletinDetail"
+    "pages/index/index"
   ],
   "window": {
     "navigationBarBackgroundColor": "@navigationBarBackgroundColor",
