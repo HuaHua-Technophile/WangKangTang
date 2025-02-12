@@ -5,15 +5,14 @@ import { BASE_URL, request } from "../../api/request";
 
 import { AdvertiseItem, BulletinItem } from "../../types/index";
 import { ProductItem } from "../../types/product/product";
+import { bulletinStore } from "../../stores/bulletinStore";
 
 Page({
   data: {
     banners: [] as AdvertiseItem[], // 初始化轮播图数据
     BASE_URL,
     hotProducts: [] as ProductItem[],
-    bulletins: [] as BulletinItem[], // 公告数据列表
-    selectedBulletin: null as BulletinItem | null, // 当前选中的公告
-    isDetailVisible: false, // 是否显示公告详情
+    bulletins: [] as BulletinItem[], //公告数据
   },
   /**
    * 获取轮播图数据
@@ -117,37 +116,26 @@ Page({
         url: "/wx/home/noToken/getBulletin",
         method: "GET",
       });
-      console.log("公告列表=>", res);
-      if (res.code == 200) this.setData({ bulletins: res.data });
-      else console.error("获取公告失败", res.msg);
+      console.log("公告列表 =>", res);
+      if (res.code === 200) {
+        // 将公告数据存储到全局 Store
+        this.setData({ bulletins: res.data });
+        bulletinStore.setBulletins(res.data);
+      } else {
+        console.error("获取公告失败", res.msg);
+      }
     } catch (error) {
       console.error("网络错误", error);
     }
   },
 
   /**
-   * 用户点击公告的处理逻辑
-   * @param event 触发事件的对象，包含所点击的公告数据
+   * 点击公告时，传递公告 ID 并跳转到详情页
    */
-  onBulletinClick(event: WechatMiniprogram.TouchEvent): void {
-    // 获取当前点击的公告索引
-    const index: number = event.currentTarget.dataset.index;
-    // 根据索引从 bulletins 中获取对应的公告数据
-    const bulletinItem: BulletinItem = this.data.bulletins[index];
-    console.log("当前点击公告数据=>", bulletinItem);
-    // 更新数据，显示公告详情组件
-    this.setData({
-      selectedBulletin: bulletinItem,
-      isDetailVisible: true,
-    });
-  },
-  /**
-   * 关闭公告详情组件
-   */
-  onCloseBulletinDetail(): void {
-    this.setData({
-      isDetailVisible: false,
-      selectedBulletin: null,
+  onBulletinClick(event: WechatMiniprogram.TouchEvent) {
+    const id = event.currentTarget.dataset.id;
+    wx.navigateTo({
+      url: `/pages/bulletinDetail/bulletinDetail?id=${id}`,
     });
   },
 

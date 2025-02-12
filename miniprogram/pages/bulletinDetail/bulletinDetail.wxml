@@ -1,0 +1,10 @@
+<!-- pages/bulletinDetail/bulletinDetail.wxml -->
+<view>
+  <view class="text-center h2 fw-bold text-body-secondary">{{bulletinDetail.title}}</view>
+  <view class="text-center text-body-tertiary">{{bulletinDetail.displayTime}}</view>
+  <!-- 添加图片展示 -->
+  <image wx:if="{{bulletinDetail.fullImageUrl}}" src="{{bulletinDetail.fullImageUrl}}" mode="aspectFit" class="w-100" />
+  <view class="ql-container ql-snow border-0 p-3">
+    <mp-html class="ql-editor" content="{{bulletinDetail.text}}" />
+  </view>
+</view>

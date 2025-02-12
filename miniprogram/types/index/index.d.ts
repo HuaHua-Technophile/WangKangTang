@@ -36,4 +36,6 @@ export interface BulletinItem {
   imgUrl?: string;
   /** 公告的详细内容 */
   text?: string;
+  updateTime: string;
+  createTime: string;
 }
